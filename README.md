@@ -1,4 +1,4 @@
-# druppeldashboard
+# Druppel-Dashboard
 
 ## Project setup
 ```
