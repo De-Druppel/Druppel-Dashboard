@@ -13,7 +13,7 @@ new Vue({
 import MQTT from 'paho-mqtt';
 
 var mqtt;
-var host= process.env.VUE_APP_MQTT_USER_NAME
+var host= process.env.VUE_APP_MQTT_HOST_URL;
 var port= Number(process.env.VUE_APP_MQTT_PORT);
 		
 function onConnect() {
