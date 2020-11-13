@@ -3,47 +3,53 @@ import App from './App.vue'
 
 Vue.config.productionTip = false
 
-var app = new Vue({
+new Vue({
   render: h => h(App),
   data: {
     plants: {}
   }
 }).$mount('#app')
-console.log(process.env.VUE_APP_MQTT_HOST_URL);
-var mqtt = require('mqtt');
-var clientId = 'mqttjs_' + Math.random().toString(16).substr(2, 8);
-var client  = mqtt.connect( 
-  process.env.VUE_APP_MQTT_HOST_URL, 
-    {
-       username: process.env.VUE_APP_MQTT_USER_NAME, 
-       password: process.env.VUE_APPMQTT_PASSWORD, 
-       clientId: clientId,
-    }
-);
-client.on('error', function(err) {
-  console.log(err);
-});
-client.on('connect', function () {
-  console.log('sucessfully connected to mqtt broker.');
-  
-  client.subscribe('Garden/+/Status', function () {
-    console.log('Subscribed to Status topic');
-  });
-  client.subscribe('Garden/+/Measurement/Moisture', function(){
-    console.log('Subscribed to Moisture measurements.');
-  });
-})
- 
-client.on('message', function (topic, message) {
-  var splitTopic = topic.split('/');
-  var espId = splitTopic[1];
-  if(splitTopic.lastItem === 'Status'){
-    if(app.data['plants'][espId] !== undefined){
-      app.data['plants'][espId] = {espId: espId, moisture: 0};
-      console.log(app.data);
-    }
+
+import MQTT from 'paho-mqtt';
+
+var mqtt;
+var host="ec2-100-27-12-57.compute-1.amazonaws.com"; //change this
+var port=9001;
+		
+function onConnect() {
+	console.log("Connected ");
+  mqtt.subscribe("World");
+  var message = new MQTT.Message("Hello");
+  message.destinationName = "World";
+	mqtt.send(message);
+}
+
+function MQTTconnect() {
+	console.log("connecting to "+ host +" "+ port);
+  mqtt = new MQTT.Client(host,port,"clientjs");
+  // set callback handlers
+  mqtt.onConnectionLost = onConnectionLost;
+  mqtt.onMessageArrived = onMessageArrived;
+	//document.write("connecting to "+ host);
+	var options = {
+		useSSL:false,
+		userName: process.env.VUE_APP_MQTT_USER_NAME,
+		password: process.env.VUE_APP_MQTT_PASSWORD,
+    onSuccess: onConnect
+  };
+  mqtt.connect(options); //connect
+}
+
+// called when the client loses its connection
+function onConnectionLost(responseObject) {
+  if (responseObject.errorCode !== 0) {
+    console.log("onConnectionLost:"+responseObject.errorMessage);
   }
-  if(splitTopic.lastItem === 'Moisture'){
-    app.data['plants'][espId] = {espId: espId, moisture: message};
-  }
-})
+}
+
+// called when a message arrives
+function onMessageArrived(message) {
+  console.log("onMessageArrived:"+message.payloadString);
+}
+
+MQTTconnect();
