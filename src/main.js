@@ -14,15 +14,12 @@ import MQTT from 'paho-mqtt';
 
 var mqtt;
 var host= process.env.VUE_APP_MQTT_USER_NAME
-var port= process.env.VUE_APP_MQTT_PORT;
+var port= Number(process.env.VUE_APP_MQTT_PORT);
 		
 function onConnect() {
 	console.log("Connected");
   mqtt.subscribe("Garden/+/Status");
   mqtt.subscribe("Garden/+/Measurement/Moisture");
-  // var message = new MQTT.Message("Hello");
-  // message.destinationName = "World";
-	// mqtt.send(message);
 }
 
 function MQTTconnect() {
