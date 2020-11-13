@@ -13,15 +13,16 @@ new Vue({
 import MQTT from 'paho-mqtt';
 
 var mqtt;
-var host="ec2-100-27-12-57.compute-1.amazonaws.com"; //change this
-var port=9001;
+var host= process.env.VUE_APP_MQTT_USER_NAME
+var port= process.env.VUE_APP_MQTT_PORT;
 		
 function onConnect() {
-	console.log("Connected ");
-  mqtt.subscribe("World");
-  var message = new MQTT.Message("Hello");
-  message.destinationName = "World";
-	mqtt.send(message);
+	console.log("Connected");
+  mqtt.subscribe("Garden/+/Status");
+  mqtt.subscribe("Garden/+/Measurement/Moisture");
+  // var message = new MQTT.Message("Hello");
+  // message.destinationName = "World";
+	// mqtt.send(message);
 }
 
 function MQTTconnect() {
@@ -45,11 +46,14 @@ function onConnectionLost(responseObject) {
   if (responseObject.errorCode !== 0) {
     console.log("onConnectionLost:"+responseObject.errorMessage);
   }
+
+  console.log('attempting to reconnect');
+  MQTTconnect();
 }
 
 // called when a message arrives
 function onMessageArrived(message) {
-  console.log("onMessageArrived:"+message.payloadString);
+  console.log("message arrived on topic: " + message.destinationName + " with contents: " + message.payloadString);
 }
 
 MQTTconnect();
