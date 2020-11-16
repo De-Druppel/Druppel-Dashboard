@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import App from './App.vue'
+import MQTT from 'paho-mqtt';
 
 Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
   data: {
-    plants: {}
+    plants: []
   }
 }).$mount('#app')
 
-import MQTT from 'paho-mqtt';
+
 
 var mqtt;
 var host= process.env.VUE_APP_MQTT_HOST_URL;
