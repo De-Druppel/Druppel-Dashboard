@@ -7,10 +7,10 @@ Vue.use(Vuex)
 
 const state = {
     Plants: [
-        {espId: 12321, status:1, moisture:"00.00"},
-        {espId: 12322, status:1, moisture:"00.00"},
-        {espId: 12323, status:0, moisture:"00.00"},
-        {espId: 12324, status:1, moisture:"00.00"}
+        {espId: "12321", status:1, moisture:"00.00"},
+        {espId: "12322", status:1, moisture:"00.00"},
+        {espId: "12323", status:0, moisture:"00.00"},
+        {espId: "12324", status:1, moisture:"00.00"}
     ]
 }
 
