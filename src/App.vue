@@ -1,28 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to the Druppel-Dashboard app. Groetjes van Peter."/>
+    <h1>Druppel Dashboard</h1>
+    <div v-for="plant in plants" :key="plant.espId">
+      <Panel :espId="plant.espId" :moisture="plant.moisture" :status="plant.status"></Panel>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Panel from './components/Panel.vue';
+ø
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Plant
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
