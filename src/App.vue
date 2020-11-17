@@ -9,11 +9,11 @@
 
 <script>
 import Panel from './components/Panel.vue';
-ø
+
 export default {
   name: 'App',
   components: {
-    Plant
+    Panel
   }
 }
 </script>

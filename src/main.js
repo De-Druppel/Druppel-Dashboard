@@ -65,13 +65,12 @@ function onMessageArrived(message) {
 
   if(topic === "Moisture"){
     var moisture = message.payloadString;
-    $.each(vm.data.plants, function(value) {
+    vm.data.plants.foreach(function(value) {
       if(value.espId === espId){
         value.moisture = moisture;
       }
     });
   }
-  console.log(espId);
 }
 
 MQTTconnect();
