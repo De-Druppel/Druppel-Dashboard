@@ -1,5 +1,7 @@
 import MQTT from 'paho-mqtt';
-import store from './store'
+import { onMessageArrived } from './message-handler'
+import { STATUS_TOPIC } from './topics'
+import { MOISTURE_TOPIC } from './topics'
 
 var mqtt;
 var host = process.env.VUE_APP_MQTT_HOST_URL;
@@ -22,10 +24,10 @@ export function MQTTconnect() {
 }
 
 function onConnect() {
-    console.log("Connected");
-    mqtt.subscribe("Garden/+/Status");
-    mqtt.subscribe("Garden/+/Measurement/Moisture");
-  }
+  console.log("Connected");
+  mqtt.subscribe(STATUS_TOPIC);
+  mqtt.subscribe(MOISTURE_TOPIC);
+}
 
 // called when the client loses its connection
 function onConnectionLost(responseObject) {
@@ -37,25 +39,3 @@ function onConnectionLost(responseObject) {
   MQTTconnect();
 }
 
-// called when a message arrives
-function onMessageArrived(message) {
-  console.log("message arrived on topic: " + message.destinationName + " with contents: " + message.payloadString);
-
-  var splitTopic = message.destinationName.split('/');
-  var espId = splitTopic[1];
-  var topic = splitTopic.pop();
-
-  if (topic === "Status") {
-    var status = message.payloadString === '1';
-    store.state.Plants.push({ espId: espId, status: status, moisture: 'Unknown' });
-  }
-
-  if (topic === "Moisture") {
-    var moisture = message.payloadString;
-    store.state.Plants.foreach(function (value) {
-      if (value.espId === espId) {
-        value.moisture = moisture;
-      }
-    });
-  }
-}
