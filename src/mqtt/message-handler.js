@@ -23,7 +23,7 @@ export function onMessageArrived(message) {
 function updateStatus(espId, status)
 {
   var hasUpdated = false;
-  this.$store.state.Plants.forEach((element, index) => {
+  store.state.Plants.forEach((element, index) => {
     if (element.espId === espId) {
       store.commit(UPDATE_ITEM, { index: index, status: status, moisture: element.moisture });
       hasUpdated = true;
@@ -37,7 +37,7 @@ function updateStatus(espId, status)
 function updateMoisture(espId, moisture)
 {
   var hasUpdated = false;
-  this.$store.state.Plants.forEach((element, index) => {
+  store.state.Plants.forEach((element, index) => {
     if (element.espId === espId) {
       store.commit(UPDATE_ITEM, { index: index, status: element.status, moisture: moisture });
       hasUpdated = true;
@@ -49,5 +49,5 @@ function updateMoisture(espId, moisture)
 }
 
 function addPlant(espId, status = false, moisture = '00.00') {
-  this.$store.commit(CREATE_ITEM, { espId: espId, status: status, moisture: moisture });
+  store.commit(CREATE_ITEM, { espId: espId, status: status, moisture: moisture });
 }
