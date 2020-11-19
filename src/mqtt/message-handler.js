@@ -22,10 +22,10 @@ export function onMessageArrived(message) {
 
 function updateStatus(espId, status)
 {
-  var hasUpdated = false;
+  const hasUpdated = false;
   store.state.Plants.forEach((element, index) => {
     if (element.espId === espId) {
-      store.commit(UPDATE_ITEM, { index: index, status: status, moisture: element.moisture });
+      store.commit(UPDATE_ITEM, { index: index, espId:espId, status: status, moisture: element.moisture });
       hasUpdated = true;
     }
   });
@@ -36,10 +36,10 @@ function updateStatus(espId, status)
 
 function updateMoisture(espId, moisture)
 {
-  var hasUpdated = false;
+  const hasUpdated = false;
   store.state.Plants.forEach((element, index) => {
     if (element.espId === espId) {
-      store.commit(UPDATE_ITEM, { index: index, status: element.status, moisture: moisture });
+      store.commit(UPDATE_ITEM, { index: index, espId:espId, status: element.status, moisture: moisture });
       hasUpdated = true;
     }
   });
