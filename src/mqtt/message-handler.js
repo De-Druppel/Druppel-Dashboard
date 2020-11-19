@@ -22,7 +22,7 @@ export function onMessageArrived(message) {
 
 function updateStatus(espId, status)
 {
-  const hasUpdated = false;
+  let hasUpdated = false;
   store.state.Plants.forEach((element, index) => {
     if (element.espId === espId) {
       store.commit(UPDATE_ITEM, { index: index, espId:espId, status: status, moisture: element.moisture });
@@ -36,7 +36,7 @@ function updateStatus(espId, status)
 
 function updateMoisture(espId, moisture)
 {
-  const hasUpdated = false;
+  let hasUpdated = false;
   store.state.Plants.forEach((element, index) => {
     if (element.espId === espId) {
       store.commit(UPDATE_ITEM, { index: index, espId:espId, status: element.status, moisture: moisture });
