@@ -17,7 +17,7 @@
 export default {
   name: "HelloWorld",
   props: {
-    espId: String,
+    espId: Number,
     status: Boolean,
     moisture: String,
   },

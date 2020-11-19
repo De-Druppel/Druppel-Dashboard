@@ -27,7 +27,6 @@ function onConnect() {
   console.log("Connected");
   mqtt.subscribe(STATUS_TOPIC);
   mqtt.subscribe(MOISTURE_TOPIC);
-  mqtt.publish("Garden/99999/Moisture/Topic", "50.00", 1, false)
 }
 
 // called when the client loses its connection
