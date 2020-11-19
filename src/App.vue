@@ -1,15 +1,15 @@
 <template>
   <b-container fluid id="app">
     <div class="header">
-    <h1>Druppel Dashboard</h1>
+      <h1>Druppel Dashboard</h1>
     </div>
     <b-row>
-      <Panel 
-      v-for="plant in loadPlants" 
-      :key="plant.espId" 
-      :espId="plant.espId" 
-      :moisture="plant.moisture" 
-      :status="plant.status"
+      <Panel
+        v-for="plant in loadPlants"
+        :key="plant.espId"
+        :espId="plant.espId"
+        :moisture="plant.moisture"
+        :status="plant.status"
       >
       </Panel>
     </b-row>
@@ -34,6 +34,6 @@ export default {
     loadPlants () {
       return this.$store.state.Plants
     }
-  }
+  },
 }
 </script>

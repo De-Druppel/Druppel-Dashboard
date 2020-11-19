@@ -17,3 +17,5 @@ new Vue({
     MQTTconnect();
   }
 }).$mount('#app')
+
+store.commit('UPDATE_ITEM', {index:0, espId:12321, status:false, moisture:"500.00"})
