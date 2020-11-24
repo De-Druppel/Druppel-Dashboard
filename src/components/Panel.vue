@@ -30,6 +30,7 @@ export default {
   border-radius: 10px;
   border: 1px solid gray;
   margin: 2px 0px 0px 0px;
+  text-align: center;
 }
 .panel-online {
   background-color: #4a9775;
@@ -38,19 +39,5 @@ export default {
 .panel-offline {
   background-color: #863532;
   color: white;
-}
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
 }
 </style>
