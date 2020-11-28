@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: "Panel",
   props: {
     espId: Number,
     status: Boolean,

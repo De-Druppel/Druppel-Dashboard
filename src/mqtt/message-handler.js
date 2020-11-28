@@ -1,7 +1,12 @@
 import store from '../store'
 import { CREATE_ITEM, UPDATE_ITEM } from '../store/mutation-types';
+import MQTT from 'paho-mqtt'
 
-// called when a message arrives
+/**
+ * Callback for the MQTT client to be called whenever a message is recieved on a subscribed topic.
+ * Determine the topic based on the destinationName and route it to the correct function.
+ * @param {MQTT.Message} message 
+ */
 export function onMessageArrived(message) {
   console.log("message arrived on topic: " + message.destinationName + " with contents: " + message.payloadString);
 
@@ -20,6 +25,11 @@ export function onMessageArrived(message) {
   }
 }
 
+/**
+ * Find the plant item in the store that has the correct espId for the message and update its status. If no matching item is found for the espId, create a new one.
+ * @param {Number} espId 
+ * @param {Boolean} status 
+ */
 function updateStatus(espId, status)
 {
   let hasUpdated = false;
@@ -34,6 +44,11 @@ function updateStatus(espId, status)
   }
 }
 
+/**
+ * Find the plant item in the store that has the correct espId for the message and update its moisture. If no matching item is found for the espId, create a new one.
+ * @param {Number} espId 
+ * @param {String} moisture 
+ */
 function updateMoisture(espId, moisture)
 {
   let hasUpdated = false;

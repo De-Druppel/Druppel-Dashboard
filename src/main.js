@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import store from './store'
 import App from './App.vue'
-import { MQTTconnect } from './mqtt'
+import { mqttConnect } from './mqtt'
 import { LayoutPlugin } from 'bootstrap-vue'
 
 require('bootstrap/dist/css/bootstrap.css');
