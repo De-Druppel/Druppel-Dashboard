@@ -1,6 +1,5 @@
 import store from '../store'
 import { CREATE_ITEM, UPDATE_ITEM } from '../store/mutation-types';
-import MQTT from 'paho-mqtt'
 
 /**
  * Callback for the MQTT client to be called whenever a message is recieved on a subscribed topic.

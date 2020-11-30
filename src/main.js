@@ -14,6 +14,6 @@ new Vue({
   store,
   render: h => h(App),
   mounted: function () {
-    MQTTconnect();
+    mqttConnect();
   }
 }).$mount('#app')
