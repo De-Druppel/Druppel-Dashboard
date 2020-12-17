@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>jQuery Line Chart</title> 
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+$(function() {
+    var value = new URL(window.location.href).searchParams.get("espId");
+
+    createChart = function(espId) {
+        var chartType = 'Moisture';
+
+        $.ajax({
+            dataType: "json",
+            url: 'http://druppel-api.herokuapp.com/druppel-api/past-readings/',
+            data: { 'api-key': 'DRUPPEL_KEY', 'days': '100', 'esp-id': espId},
+            success: function(data){
+                var points = [];
+
+                var dataObject = JSON.parse(JSON.stringify(data)).data;
+                for (var key in dataObject) {
+                    dataObject[key].forEach(function(item, index) {
+                        if(item.type == chartType) {
+                            points.push({ label : key, y: item.value });
+                        }
+                    });
+                }
+                
+                $(".ChartPlaceholder").CanvasJSChart({
+                    title: {
+                        text: "Gemiddelde vochtigheid per dag"
+                    },
+                    axisY: {
+                        title: "Vochtigheid in %",
+                        includeZero: false
+                    },
+                    axisX: {
+                        interval: 1
+                    },
+                    data: [
+                    {
+                        type: "line", //try changing to column, area
+                        toolTipContent: "{label}: {y}  ",
+                        dataPoints: points
+                    }
+                    ]
+                });
+              }
+        });
+    }
+
+    createChart(value);
+
+});
+</script>
+</head>
+<body>
+<div class="ChartPlaceholder" style="height: 100%; width: 100%;"></div>
+</body>
+</html>
